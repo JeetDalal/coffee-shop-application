@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeCard extends StatelessWidget {
+  final String coffeeName;
   final String id;
   final String description;
   final String imageUrl;
   final String price;
   const CoffeeCard({
+    required this.coffeeName,
     required this.id,
     required this.description,
     required this.imageUrl,
@@ -62,7 +64,7 @@ class CoffeeCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    coffeeNames[selectedIndex],
+                    coffeeName,
                     style: GoogleFonts.qwitcherGrypen(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,

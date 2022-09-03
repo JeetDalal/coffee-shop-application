@@ -1,5 +1,8 @@
+import 'package:coffeeapp/provider/coffee.dart';
+import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/screens/coffee_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/home_page.dart';
 
@@ -12,16 +15,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CoffeeProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+        ),
+        home: const HomePage(),
+        routes: {
+          '/coffee-screen': (context) => const CoffeeScreen(),
+        },
       ),
-      home: const HomePage(),
-      routes: {
-        '/coffee-screen': (context) => const CoffeeScreen(),
-      },
     );
   }
 }

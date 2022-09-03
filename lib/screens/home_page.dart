@@ -1,6 +1,8 @@
+import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/widgets/coffee_type.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/bottom_navigation.dart';
 import '../widgets/coffee_card.dart';
@@ -21,6 +23,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final coffeeList = Provider.of<CoffeeProvider>(context).coffeeItem;
+
     return Scaffold(
       bottomNavigationBar: const BNavigtionBar(),
       backgroundColor: Colors.black,
@@ -105,40 +109,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  // scrollDirection: Axis.horizontal,
-                  children: [
-                    CoffeeCard(
-                      id: DateTime.now().toString(),
+              SizedBox(
+                height: 450,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: coffeeList.length,
+                  itemBuilder: (context, index) {
+                    return CoffeeCard(
+                      coffeeName: coffeeList[index].coffeeName,
+                      id: coffeeList[index].id,
+                      description: coffeeList[index].description,
+                      imageUrl: coffeeList[index].imageUrl,
+                      price: '  ' + coffeeList[index].price.toString(),
                       selectedIndex: selectedIndex,
-                      description: 'with Oat Milk',
-                      imageUrl: 'images/coffee1.jpg',
-                      price: ' 4.99',
-                    ),
-                    CoffeeCard(
-                      id: DateTime.now().toString(),
-                      selectedIndex: selectedIndex,
-                      description: 'with Chocolate',
-                      imageUrl: 'images/coffee2.jpg',
-                      price: ' 3.99',
-                    ),
-                    CoffeeCard(
-                      id: DateTime.now().toString(),
-                      selectedIndex: selectedIndex,
-                      description: 'with Caramel',
-                      imageUrl: 'images/coffee3.jpg',
-                      price: ' 3.99',
-                    ),
-                    CoffeeCard(
-                      id: DateTime.now().toString(),
-                      selectedIndex: selectedIndex,
-                      description: 'with no Milk',
-                      imageUrl: 'images/coffee4.jpg',
-                      price: ' 3.99',
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ],
