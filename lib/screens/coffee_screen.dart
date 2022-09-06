@@ -269,7 +269,7 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                               child: Container(
                                 height: 50,
                                 // color: Colors.white,
-                                width: 250,
+                                width: 200,
                                 // height: 35,
                                 decoration: BoxDecoration(
                                   color: Colors.orange,

@@ -12,7 +12,7 @@ class CoffeeProvider with ChangeNotifier {
       id: DateTime.now().toString(),
       description: 'with Oat Milk',
       imageUrl: 'images/coffee1.jpg',
-      price: 4.99,
+      price: 43.99,
     ),
     Coffee(
       briefDescription:
@@ -34,7 +34,7 @@ class CoffeeProvider with ChangeNotifier {
       id: DateTime.now().toString(),
       description: 'without Milk',
       imageUrl: 'images/coffee3.jpg',
-      price: 4.99,
+      price: 5.99,
     ),
     Coffee(
       briefDescription:
@@ -45,7 +45,7 @@ class CoffeeProvider with ChangeNotifier {
       id: DateTime.now().toString(),
       description: 'with Caramel',
       imageUrl: 'images/coffee4.jpg',
-      price: 4.99,
+      price: 6.99,
     ),
     Coffee(
       briefDescription:
@@ -56,7 +56,7 @@ class CoffeeProvider with ChangeNotifier {
       id: DateTime.now().toString(),
       description: 'with Nuts',
       imageUrl: 'images/coffee5.jpg',
-      price: 4.99,
+      price: 7.99,
     ),
   ];
 
