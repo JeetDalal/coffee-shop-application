@@ -1,5 +1,6 @@
 import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/widgets/coffee_type.dart';
+import 'package:custom_navigator/custom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,109 +26,110 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final coffeeList = Provider.of<CoffeeProvider>(context).coffeeItem;
 
-    return Scaffold(
-      bottomNavigationBar: const BNavigtionBar(),
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 40,
-                ),
-                child: Row(
-                  children: const [
-                    MenuIcon(
-                      icon: Icon(
-                        Icons.menu,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Spacer(),
-                    MenuIcon(
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Text(
-                  'Find the best\ncoffee for you',
-                  style: GoogleFonts.poppins(
-                    fontSize: 35,
-                    fontWeight: FontWeight.w600,
+    return CustomScaffold(
+      scaffold: Scaffold(
+        backgroundColor: Colors.black,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 40,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 35,
-                ),
-                child: SearchBox(),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 35),
-                child: SizedBox(
-                  height: 40,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: List.generate(coffeeNames.length, (index) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
-                            },
-                            child: index != selectedIndex
-                                ? CoffeeType(
-                                    coffeeName: coffeeNames[index],
-                                    isSelected: _isSelected,
-                                  )
-                                : OtherwiseText(
-                                    selectedIndex: selectedIndex,
-                                  ),
-                          ),
+                  child: Row(
+                    children: const [
+                      MenuIcon(
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.grey,
                         ),
-                      );
-                    }),
+                      ),
+                      Spacer(),
+                      MenuIcon(
+                        icon: Icon(
+                          Icons.person,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 450,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: coffeeList.length,
-                  itemBuilder: (context, index) {
-                    return CoffeeCard(
-                      coffeeName: coffeeList[index].coffeeName,
-                      id: coffeeList[index].id,
-                      description: coffeeList[index].description,
-                      imageUrl: coffeeList[index].imageUrl,
-                      price: '  ' + coffeeList[index].price.toString(),
-                      selectedIndex: selectedIndex,
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Text(
+                    'Find the best\ncoffee for you',
+                    style: GoogleFonts.poppins(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 30,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 35,
+                  ),
+                  child: SearchBox(),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: SizedBox(
+                    height: 40,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(coffeeNames.length, (index) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              },
+                              child: index != selectedIndex
+                                  ? CoffeeType(
+                                      coffeeName: coffeeNames[index],
+                                      isSelected: _isSelected,
+                                    )
+                                  : OtherwiseText(
+                                      selectedIndex: selectedIndex,
+                                    ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 450,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: coffeeList.length,
+                    itemBuilder: (context, index) {
+                      return CoffeeCard(
+                        coffeeName: coffeeList[index].coffeeName,
+                        id: coffeeList[index].id,
+                        description: coffeeList[index].description,
+                        imageUrl: coffeeList[index].imageUrl,
+                        price: '  ' + coffeeList[index].price.toString(),
+                        selectedIndex: selectedIndex,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

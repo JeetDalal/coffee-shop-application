@@ -1,35 +1,29 @@
-import 'package:flutter/material.dart';
+// import 'package:coffeeapp/screens/cart_screen.dart';
+// import 'package:coffeeapp/screens/home_page.dart';
+// import 'package:flutter/material.dart';
 
-class BNavigtionBar extends StatelessWidget {
-  const BNavigtionBar({Key? key}) : super(key: key);
+// enum Options {
+//   home,
+//   cart,
+//   favorites,
+//   histry,
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      elevation: 5,
-      backgroundColor: Colors.black.withOpacity(0.5),
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home,
-            color: Colors.orange,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag_sharp),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications),
-          label: '',
-        ),
-      ],
-    );
-  }
-}
+// class BNavigtionBar extends StatefulWidget {
+//   const BNavigtionBar({Key? key}) : super(key: key);
+
+//   @override
+//   State<BNavigtionBar> createState() => _BNavigtionBarState();
+// }
+
+// class _BNavigtionBarState extends State<BNavigtionBar> {
+//   int index = 1;
+//   List<Widget> pages = [
+//     HomePage(),
+//     CartScreen(),
+//   ];
+//   @override
+//   Widget build(BuildContext context) {
+    
+//   }
+// }

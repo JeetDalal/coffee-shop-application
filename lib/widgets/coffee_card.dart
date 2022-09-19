@@ -59,16 +59,14 @@ class CoffeeCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 5,
+                padding: const EdgeInsets.only(
+                  left: 10,
                 ),
-                child: Center(
-                  child: Text(
-                    coffeeName,
-                    style: GoogleFonts.qwitcherGrypen(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                    ),
+                child: Text(
+                  coffeeName,
+                  style: GoogleFonts.qwitcherGrypen(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
