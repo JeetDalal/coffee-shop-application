@@ -1,10 +1,9 @@
 import 'dart:ui';
-
+import 'package:coffeeapp/provider/cart.dart';
 import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/widgets/menu_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/size_determiner.dart';
 
 class CoffeeScreen extends StatefulWidget {
@@ -20,11 +19,22 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
   String showStatus = 'show more...';
   bool _isPressed = false;
   double containerHeight = 20;
+  bool _buyNow = false;
+  int _counter = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final prodId = ModalRoute.of(context)!.settings.arguments as String;
     final prodList = Provider.of<CoffeeProvider>(context).coffeeItem;
     final coffee = prodList.firstWhere((element) => element.id == prodId);
+    final cartItem = Provider.of<Cart>(context);
+    // final coffeeQuantity = cartItem.coffeeQuantity(prodId);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -265,23 +275,113 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: TextButton(
-                              onPressed: () {},
-                              child: Container(
-                                height: 50,
-                                // color: Colors.white,
-                                width: 200,
-                                // height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.orange,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'BUY NOW',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _buyNow = true;
+                                });
+                              },
+                              child: _buyNow
+                                  ? Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            cartItem.addItem(
+                                              prodId,
+                                              coffee.coffeeName,
+                                              coffee.price,
+                                              coffee.description,
+                                              coffee.imageUrl,
+                                            );
+                                            setState(() {
+                                              _counter++;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                              color: Colors.orange,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                '+',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 35,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Text(
+                                            _counter.toString(),
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (_counter > 1) {
+                                              cartItem.decrement(
+                                                prodId,
+                                                coffee.coffeeName,
+                                                coffee.price,
+                                                coffee.description,
+                                                coffee.imageUrl,
+                                              );
+                                              setState(() {
+                                                _counter <= 0 ? 0 : _counter--;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                _buyNow = false;
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                              color: Colors.orange,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                '-',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 45),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(
+                                      height: 50,
+                                      // color: Colors.white,
+                                      width: 200,
+                                      // height: 35,
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'BUY NOW',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
                             ),
                           ),
                         ],

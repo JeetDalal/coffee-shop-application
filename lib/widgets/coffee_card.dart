@@ -8,7 +8,7 @@ class CoffeeCard extends StatelessWidget {
   final String description;
   final String imageUrl;
   final String price;
-  const CoffeeCard({
+  CoffeeCard({
     required this.coffeeName,
     required this.id,
     required this.description,
@@ -19,6 +19,8 @@ class CoffeeCard extends StatelessWidget {
   }) : super(key: key);
 
   final int selectedIndex;
+
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +113,11 @@ class CoffeeCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed('/coffee-screen', arguments: id);
+                        },
+                        icon: const Icon(
                           Icons.add,
                           color: Colors.white,
                         ),

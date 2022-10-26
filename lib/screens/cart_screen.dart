@@ -3,50 +3,42 @@ import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import '../widgets/bottom_navigation.dart';
-
+import '../provider/cart.dart';
+import '../widgets/cart_screen_widgets/cart_list.dart';
 import '../widgets/frequent_product.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({Key? key}) : super(key: key);
 
-  List<dynamic> tips = [10, 20, 30, 'custom'];
+  List<String> tips = ['\$ 10', '\$ 20', '\$ 30', '\$ 40'];
 
   @override
   Widget build(BuildContext context) {
     final products =
         Provider.of<CoffeeProvider>(context, listen: false).coffeeItem;
-    bool isTrue = true;
+    final cartItem = Provider.of<Cart>(context);
+    final cart = cartItem.cartList;
+
     return Scaffold(
       // bottomNavigationBar: BNavigtionBar(),
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: isTrue
+        child: cart.isNotEmpty
             ? SingleChildScrollView(
                 child: SizedBox(
                   child: Column(
                     children: [
                       SizedBox(
                         child: Column(
-                          children: [
-                            const Text(
+                          children: const [
+                            Text(
                               'Your Cart',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 20,
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blueGrey.shade900,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                height: 320,
-                              ),
-                            ),
+                            CartList(),
                           ],
                         ),
                         // color: Colors.orange.withOpacity(0.9),
@@ -188,7 +180,7 @@ class CartScreen extends StatelessWidget {
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       Text(
-                                        '₹52',
+                                        '\$ 5',
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ],
@@ -202,7 +194,7 @@ class CartScreen extends StatelessWidget {
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       Text(
-                                        '₹35',
+                                        '\$ 5',
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ],
@@ -216,7 +208,7 @@ class CartScreen extends StatelessWidget {
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       Text(
-                                        '₹15',
+                                        '\$ 5',
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ],
@@ -236,8 +228,8 @@ class CartScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text(
+                              children: [
+                                const Text(
                                   'To Pay ',
                                   style: TextStyle(
                                     color: Colors.grey,
@@ -245,8 +237,8 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '₹102',
-                                  style: TextStyle(
+                                  '\$ ${cartItem.toPay.toString()}',
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 25,
                                   ),

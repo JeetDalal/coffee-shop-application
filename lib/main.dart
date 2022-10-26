@@ -1,7 +1,9 @@
+import 'package:coffeeapp/provider/cart.dart';
 import 'package:coffeeapp/provider/coffee.dart';
 import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/screens/cart_screen.dart';
 import 'package:coffeeapp/screens/coffee_screen.dart';
+import 'package:coffeeapp/screens/mediator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CoffeeProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -30,12 +35,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.dark,
         ),
-        initialRoute: '/checkout-screen',
+        initialRoute: '/page-controller',
         routes: {
           '/checkout-screen': (context) => CartScreen(),
           '/cart-screen': (context) => const LoginPage(),
-          'home-page': (context) => const HomePage(),
+          '/home-page': (context) => const HomePage(),
           '/coffee-screen': (context) => const CoffeeScreen(),
+          '/page-controller': (context) => const Mediate(),
         },
       ),
     );

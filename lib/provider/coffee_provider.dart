@@ -12,7 +12,7 @@ class CoffeeProvider with ChangeNotifier {
       id: DateTime.now().toString(),
       description: 'with Oat Milk',
       imageUrl: 'images/coffee1.jpg',
-      price: 43.99,
+      price: 3.99,
     ),
     Coffee(
       briefDescription:
@@ -59,6 +59,20 @@ class CoffeeProvider with ChangeNotifier {
       price: 7.99,
     ),
   ];
-
   List<Coffee> get coffeeItem => [..._coffeeList];
+  int _counter = 0;
+
+  void increment() {
+    _counter++;
+    notifyListeners();
+  }
+
+  void decrement() {
+    _counter <= 0 ? 0 : _counter--;
+    notifyListeners();
+  }
+
+  int get total {
+    return _counter;
+  }
 }
