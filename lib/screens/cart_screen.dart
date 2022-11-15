@@ -260,6 +260,7 @@ class _CartScreenState extends State<CartScreen> {
                         borderRadius: 20,
                         outerColor: Colors.blueGrey[900],
                         onSubmit: () {
+                          cartItem.addToHistory();
                           cartItem.clearCart();
                           for (int i = 0; i < products.length; i++) {
                             products[i].quantity = 0;

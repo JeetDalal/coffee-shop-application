@@ -7,6 +7,7 @@ import 'package:coffeeapp/screens/mediator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/history_screen.dart';
 import 'screens/home_page.dart';
 import 'screens/login.dart';
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/home-page': (context) => const HomePage(),
           '/coffee-screen': (context) => const CoffeeScreen(),
           '/page-controller': (context) => const Mediate(),
+          '/profile-screen': (context) => const HistoryScreen(),
         },
       ),
     );

@@ -1,7 +1,8 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class CartItem {
   final String id;
@@ -23,9 +24,16 @@ class CartItem {
 
 class Cart with ChangeNotifier {
   Map<String, CartItem> _cartList = {};
+  List<Map<String, CartItem>> _ordersList = [];
+  List<double> total = [];
+  // double amt = 15.0;
 
   Map<String, CartItem> get cartList {
     return {..._cartList};
+  }
+
+  List<Map<String, CartItem>> get history {
+    return [..._ordersList];
   }
 
   void addItem(
@@ -124,5 +132,32 @@ class Cart with ChangeNotifier {
         .toList()
         .firstWhere((element) => element.id == id)
         .quantity;
+  }
+
+  void addToHistory() {
+    _ordersList.add(cartList);
+    notifyListeners();
+  }
+
+  List<double> calculateTotal(int index) {
+    double amt = 15.0;
+    // for (int j = 0; j < _ordersList.length; j++) {
+    for (int i = 0; i < index; i++) {
+      _ordersList[i].values.forEach((element) {
+        amt += element.price * element.quantity;
+      });
+      total.add(amt);
+      // }
+      // total[j] = amt;
+      // amt = 15.0;
+    }
+    return total;
+  }
+
+  List<double> get amount {
+    double amt = 15;
+    List<double> tot = [];
+
+    return tot;
   }
 }
