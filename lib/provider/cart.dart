@@ -113,4 +113,16 @@ class Cart with ChangeNotifier {
     _cartList.remove(prodId);
     notifyListeners();
   }
+
+  void clearCart() {
+    _cartList.clear();
+    notifyListeners();
+  }
+
+  int getQuantity(String id) {
+    return _cartList.values
+        .toList()
+        .firstWhere((element) => element.id == id)
+        .quantity;
+  }
 }

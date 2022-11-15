@@ -9,8 +9,11 @@ class Coffee with ChangeNotifier {
   final double rating;
   final String totalRating;
   final String briefDescription;
+  bool isFavourite;
+  int quantity;
 
   Coffee({
+    required this.quantity,
     required this.briefDescription,
     required this.totalRating,
     required this.rating,
@@ -19,5 +22,6 @@ class Coffee with ChangeNotifier {
     required this.description,
     required this.imageUrl,
     required this.price,
+    required this.isFavourite,
   });
 }

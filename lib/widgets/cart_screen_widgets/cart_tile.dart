@@ -24,7 +24,8 @@ class CartItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     return Dismissible(
-      key: ValueKey(key),
+      direction: DismissDirection.endToStart,
+      key: ValueKey(prodId),
       background: Container(
         color: Colors.red,
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'cart_screen.dart';
+import 'favorites_screen.dart';
+import 'history_screen.dart';
 import 'home_page.dart';
 
 class Mediate extends StatefulWidget {
@@ -74,6 +76,8 @@ class _MediateState extends State<Mediate> {
         children: [
           HomePage(),
           CartScreen(),
+          FavoritesScreen(),
+          HistoryScreen(),
         ],
       ),
     );

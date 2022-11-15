@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:coffeeapp/provider/cart.dart';
 import 'package:coffeeapp/provider/coffee_provider.dart';
+import 'package:coffeeapp/widgets/coffee_type.dart';
 import 'package:coffeeapp/widgets/menu_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,6 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
   String showStatus = 'show more...';
   bool _isPressed = false;
   double containerHeight = 20;
-  bool _buyNow = false;
   int _counter = 1;
 
   @override
@@ -31,9 +31,11 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
   @override
   Widget build(BuildContext context) {
     final prodId = ModalRoute.of(context)!.settings.arguments as String;
+    final coffeeList = Provider.of<CoffeeProvider>(context);
     final prodList = Provider.of<CoffeeProvider>(context).coffeeItem;
     final coffee = prodList.firstWhere((element) => element.id == prodId);
     final cartItem = Provider.of<Cart>(context);
+    bool _buyNow = coffee.quantity >= 0 ? true : false;
     // final coffeeQuantity = cartItem.coffeeQuantity(prodId);
     return Scaffold(
       backgroundColor: Colors.black,
@@ -69,9 +71,15 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                           ),
                         ),
                         GestureDetector(
-                          child: const MenuIcon(
+                          onTap: () {
+                            setState(() {
+                              coffee.isFavourite = !coffee.isFavourite;
+                            });
+                          },
+                          child: MenuIcon(
                             icon: Icon(
                               Icons.favorite,
+                              color: coffee.isFavourite ? Colors.red : null,
                             ),
                           ),
                         ),
@@ -277,7 +285,9 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                             child: TextButton(
                               onPressed: () {
                                 setState(() {
-                                  _buyNow = true;
+                                  setState(() {
+                                    _buyNow = true;
+                                  });
                                 });
                               },
                               child: _buyNow
@@ -285,6 +295,8 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            // coffeeList
+                                            //     .increment(coffee.quantity);
                                             cartItem.addItem(
                                               prodId,
                                               coffee.coffeeName,
@@ -293,7 +305,7 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                                               coffee.imageUrl,
                                             );
                                             setState(() {
-                                              _counter++;
+                                              coffee.quantity++;
                                             });
                                           },
                                           child: Container(
@@ -320,8 +332,8 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                                             horizontal: 20,
                                           ),
                                           child: Text(
-                                            _counter.toString(),
-                                            style: TextStyle(
+                                            coffee.quantity.toString(),
+                                            style: const TextStyle(
                                               fontSize: 30,
                                               color: Colors.white,
                                             ),
@@ -329,7 +341,7 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            if (_counter > 1) {
+                                            if (coffee.quantity > 0) {
                                               cartItem.decrement(
                                                 prodId,
                                                 coffee.coffeeName,
@@ -337,8 +349,10 @@ class _CoffeeScreenState extends State<CoffeeScreen> {
                                                 coffee.description,
                                                 coffee.imageUrl,
                                               );
+                                              // coffeeList
+                                              //     .decrement(coffee.quantity);
                                               setState(() {
-                                                _counter <= 0 ? 0 : _counter--;
+                                                coffee.quantity--;
                                               });
                                             } else {
                                               setState(() {

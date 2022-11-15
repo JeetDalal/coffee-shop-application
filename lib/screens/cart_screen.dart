@@ -3,13 +3,19 @@ import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 import '../provider/cart.dart';
 import '../widgets/cart_screen_widgets/cart_list.dart';
 import '../widgets/frequent_product.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   CartScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   List<String> tips = ['\$ 10', '\$ 20', '\$ 30', '\$ 40'];
 
   @override
@@ -237,7 +243,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '\$ ${cartItem.toPay.toString()}',
+                                  '\$ ${(cartItem.toPay.toStringAsFixed(2))}',
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 25,
@@ -247,6 +253,15 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+                      SlideAction(
+                        text: "Swipe To Pay",
+                        innerColor: Colors.black,
+                        borderRadius: 20,
+                        outerColor: Colors.blueGrey[900],
+                        onSubmit: () {
+                          cartItem.clearCart();
+                        },
                       ),
                     ],
                   ),
