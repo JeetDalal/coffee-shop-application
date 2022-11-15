@@ -1,3 +1,4 @@
+import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,10 @@ class CartItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
+    final prodList = Provider.of<CoffeeProvider>(context);
+    final coffee = prodList.coffeeItem.firstWhere(
+      (element) => element.id == prodId,
+    );
     return Dismissible(
       direction: DismissDirection.endToStart,
       key: ValueKey(prodId),
@@ -31,6 +36,7 @@ class CartItemTile extends StatelessWidget {
       ),
       onDismissed: (direction) {
         cart.removeItem(prodId);
+        coffee.quantity = 0;
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

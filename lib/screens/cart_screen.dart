@@ -261,6 +261,9 @@ class _CartScreenState extends State<CartScreen> {
                         outerColor: Colors.blueGrey[900],
                         onSubmit: () {
                           cartItem.clearCart();
+                          for (int i = 0; i < products.length; i++) {
+                            products[i].quantity = 0;
+                          }
                         },
                       ),
                     ],
