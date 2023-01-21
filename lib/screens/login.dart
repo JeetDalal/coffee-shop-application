@@ -100,7 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                              border: InputBorder.none, hintText: 'Email'),
+                            border: InputBorder.none,
+                            hintText: 'Email',
+                          ),
                         ),
                       ),
                     ),
@@ -118,7 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextField(
                         controller: _passwordController,
                         decoration: const InputDecoration(
-                            border: InputBorder.none, hintText: 'password'),
+                          border: InputBorder.none,
+                          hintText: 'password',
+                        ),
                       ),
                     ),
                   ),
@@ -132,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                     // final String password = _passwordController.text;
                     // FirebaseAuth.instance.signInWithEmailAndPassword(
                     //     email: email, password: password);
-                    Navigator.of(context).pushNamed('home-page');
+                    Navigator.of(context).pushNamed('/page-controller');
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -153,6 +157,18 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Not registered Yet?"),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/register-screen');
+                      },
+                      child: const Text("Register"),
+                    ),
+                  ],
                 ),
               ],
             ),

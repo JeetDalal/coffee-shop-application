@@ -4,15 +4,21 @@ import 'package:coffeeapp/provider/coffee_provider.dart';
 import 'package:coffeeapp/screens/cart_screen.dart';
 import 'package:coffeeapp/screens/coffee_screen.dart';
 import 'package:coffeeapp/screens/mediator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'screens/history_screen.dart';
 import 'screens/home_page.dart';
 import 'screens/login.dart';
+import 'screens/register.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -39,6 +45,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/page-controller',
         routes: {
           '/checkout-screen': (context) => CartScreen(),
+          '/register-screen': (context) => const RegisterScreen(),
           '/cart-screen': (context) => const LoginPage(),
           '/home-page': (context) => const HomePage(),
           '/coffee-screen': (context) => const CoffeeScreen(),
